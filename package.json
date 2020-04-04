@@ -1,0 +1,32 @@
+{
+  "name": "github_app",
+  "version": "1.0.0",
+  "description": "A small project that makes calls to the GihHub API for experimentation and learning",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/GiorgosTagkoulis/GitHub_App.git"
+  },
+  "keywords": [
+    "github",
+    "api"
+  ],
+  "author": "Georgios Tagkoulis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GiorgosTagkoulis/GitHub_App/issues"
+  },
+  "homepage": "https://github.com/GiorgosTagkoulis/GitHub_App#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
