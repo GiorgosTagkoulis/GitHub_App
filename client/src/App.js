@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import Home from './components/Home';
 import User from './components/User';
-// import NotFound from './components/NotFound';
+import ErrorPage from './components/ErrorPage';
 
 const Wrapper = styled.div`
   margin: 7em auto;
@@ -69,6 +68,7 @@ class App extends Component {
       .then((res) =>
         this.setState({
           userExists: true,
+          errorMessage: '',
           user: res,
         })
       )
@@ -95,8 +95,8 @@ class App extends Component {
           <InputText value={this.state.searchTerm} onChange={this.handleChange} />
           <InputSubmit />
         </form>
-        {this.state.userExists}
-        <User details={this.state.user} />
+        {this.state.userExists && <User details={this.state.user} />}
+        {this.state.errorMessage && <ErrorPage error={this.state.errorMessage} />}
       </Wrapper>
     );
   }
