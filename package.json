@@ -1,5 +1,5 @@
 {
-  "name": "GitHub_App",
+  "name": "my_github_app",
   "version": "1.0.0",
   "description": "A small project that makes calls to the GihHub API for experimentation and learning",
   "main": "index.js",

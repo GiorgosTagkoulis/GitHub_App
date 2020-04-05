@@ -9,21 +9,17 @@ app.use(bodyParser.json());
 
 const notFound = 404;
 
-// An api endpoint that returns a short list of items
 app.post('/search', (req, res) => {
-  console.debug('### req.body is: ', req.body);
   const { username } = req.body;
   let resources = {};
   fetch(`https://api.github.com/users/${username}`)
     .then((respond) => {
-      console.debug('### resultCode is: ', respond.status);
       if (respond.status === notFound) {
         res.sendStatus(notFound);
       }
       return respond.json();
     })
     .then((respond) => {
-      // console.debug('### respond is: \n', respond);
       if (respond.type === 'User') {
         resources = {
           name: respond.name,
@@ -34,7 +30,6 @@ app.post('/search', (req, res) => {
           following: respond.following,
           public_repos: respond.public_repos,
         };
-        console.debug('### resources is: \n', resources);
         res.json(resources);
       }
     })
@@ -45,7 +40,6 @@ app.post('/search', (req, res) => {
 });
 
 app.get('/:username', async (req, res) => {
-  console.debug(req.params.username);
   const { username } = req.params;
   const respondObj = {
     followers: [],
