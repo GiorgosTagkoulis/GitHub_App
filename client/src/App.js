@@ -17,12 +17,12 @@ const Header = styled.h1`
 
 const InputText = styled.input.attrs({
   type: 'text',
-  placeholder: 'Search GitHub user',
+  placeholder: 'Search GitHub username',
 })`
   padding: 11px;
   border-radius: 5px;
   border: 1px solid #eaeaea;
-  max-width: -moz-available;
+  width: 60%;
 `;
 
 const InputSubmit = styled.input.attrs({
@@ -51,7 +51,7 @@ class App extends Component {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user: username }),
+      body: JSON.stringify({ username: username }),
     };
     fetch(endpoint, requestOptions)
       .then((res) => {

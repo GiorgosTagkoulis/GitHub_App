@@ -12,31 +12,27 @@ const notFound = 404;
 // An api endpoint that returns a short list of items
 app.post('/search', (req, res) => {
   console.debug('### req.body is: ', req.body);
-  const { user } = req.body;
+  const { username } = req.body;
   let resources = {};
-  fetch(`https://api.github.com/users/${user}`)
-    .then((result) => {
-      console.debug('### resultCode is: ', result.status);
-      if (result.status === notFound) {
+  fetch(`https://api.github.com/users/${username}`)
+    .then((respond) => {
+      console.debug('### resultCode is: ', respond.status);
+      if (respond.status === notFound) {
         res.sendStatus(notFound);
       }
-      return result.json();
+      return respond.json();
     })
-    .then((result) => {
-      console.debug('### result is: \n', result);
-      if (result.type === 'User') {
+    .then((respond) => {
+      // console.debug('### respond is: \n', respond);
+      if (respond.type === 'User') {
         resources = {
-          name: result.name,
-          username: result.login,
-          html_url: result.html_url,
-          avatar_url: result.avatar_url,
-          followers: result.followers,
-          following: result.following,
-          public_repos: result.public_repos,
-          followers_url: result.followers_url,
-          following_url: result.following_url,
-          repos_url: result.repos_url,
-          starred_url: result.starred_url,
+          name: respond.name,
+          username: respond.login,
+          html_url: respond.html_url,
+          avatar_url: respond.avatar_url,
+          followers: respond.followers,
+          following: respond.following,
+          public_repos: respond.public_repos,
         };
         console.debug('### resources is: \n', resources);
         res.json(resources);
@@ -46,6 +42,44 @@ app.post('/search', (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+});
+
+app.get('/:username', async (req, res) => {
+  console.debug(req.params.username);
+  const { username } = req.params;
+  const respondObj = {
+    followers: [],
+    following: [],
+    repos: [],
+  };
+  await fetch(`https://api.github.com/users/${username}/followers`)
+    .then((respond) => respond.json())
+    .then((respond) => {
+      respondObj.followers = respond.map((followers) => followers.login);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+  await fetch(`https://api.github.com/users/${username}/following`)
+    .then((respond) => respond.json())
+    .then((respond) => {
+      respondObj.following = respond.map((following) => following.login);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+  await fetch(`https://api.github.com/users/${username}/repos`)
+    .then((respond) => respond.json())
+    .then((respond) => {
+      respondObj.repos = respond.map((repos) => repos.name);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+  res.json(respondObj);
 });
 
 const port = process.env.PORT || 8080;
