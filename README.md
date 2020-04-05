@@ -22,7 +22,7 @@ Install client dependencies:
 
 ### Run the server and the client
 
-Run the server in production:  
+Once back to the root directory of the project (``cd ../`` if one following the commands presented here), run the server in production:  
 
 ``npm start``
 
