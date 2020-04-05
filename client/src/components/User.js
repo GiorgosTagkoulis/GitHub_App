@@ -86,36 +86,24 @@ class User extends Component {
         </UpPart>
         <DownPart>
           <Nav callback={this.activeTab} />
-          {(() => {
-            switch (this.state.active) {
-              case 1:
-                return (
-                  <ul>
-                    {this.state.resources.followers.map((follower) => (
-                      <li key={this.state.resources.followers.indexOf(follower)}>{follower}</li>
-                    ))}
-                  </ul>
-                );
-              case 2:
-                return (
-                  <ul>
-                    {this.state.resources.following.map((user) => (
-                      <li key={this.state.resources.following.indexOf(user)}>{user}</li>
-                    ))}
-                  </ul>
-                );
-              case 3:
-                return (
-                  <ul>
-                    {this.state.resources.repos.map((repo) => (
-                      <li key={this.state.resources.repos.indexOf(repo)}>{repo}</li>
-                    ))}
-                  </ul>
-                );
-              default:
-                return <p>List</p>;
-            }
-          })()}
+          <BoldText>Followers</BoldText>
+          <ul>
+            {this.state.resources.followers.map((follower) => (
+              <li key={this.state.resources.followers.indexOf(follower)}>{follower}</li>
+            ))}
+          </ul>
+          <BoldText>Following</BoldText>
+          <ul>
+            {this.state.resources.following.map((user) => (
+              <li key={this.state.resources.following.indexOf(user)}>{user}</li>
+            ))}
+          </ul>
+          <BoldText>Repos</BoldText>
+          <ul>
+            {this.state.resources.repos.map((repo) => (
+              <li key={this.state.resources.repos.indexOf(repo)}>{repo}</li>
+            ))}
+          </ul>
         </DownPart>
       </Wrapper>
     );
