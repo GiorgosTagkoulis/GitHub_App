@@ -77,6 +77,8 @@ app.get('/:username', async (req, res) => {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port);
+const server = app.listen(port);
 
 console.debug(`App is listening on port ${port}`);
+
+module.exports = server;
