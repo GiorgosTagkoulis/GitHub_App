@@ -4,40 +4,48 @@ An app that make api calls to the GitHib API. It searches for users by username 
 
 ### Install Dependencies
 
-Clone the repo:  
+Clone the repo:
 
-``git clone git@github.com:GiorgosTagkoulis/GitHub_App.git``
+`git clone git@github.com:GiorgosTagkoulis/GitHub_App.git`
 
-and change directory to the repo:  
+and change directory to the repo:
 
-``cd GitHub_App``
+`cd GitHub_App`
 
-Install server dependencies:  
+Install server dependencies:
 
-``npm install``
+`npm install`
 
-Install client dependencies:  
+Install client dependencies:
 
-``cd client && yarn install``
+`cd client && yarn install`
 
 ### Run the server and the client
 
-Once back to the root directory of the project (``cd ../`` if one following the commands presented here), run the server in production:  
+Once back to the root directory of the project (`cd ../` if one following the commands presented here), run the server in production:
 
-``npm start``
+`npm start`
 
 Run the server in development:
 
-``npm start:dev``
+`npm start:dev`
 
-Run the client:  
+Run the client:
 
-``npm run start:client``
+`npm run start:client`
+
+### Run tests
+
+To run the tests, in the root directory type:
+
+`npm run test`
+
+Keep in mind that in the a slow network, the second test might fail because it might exceed the 2000ms.
 
 ### Commence the application
 
-Go to your favourite browser and type the address:  
+Go to your favourite browser and type the address:
 
-``localhost:3000``
+`localhost:3000`
 
-Search GitHub users by username.
+Search GitHub users by username. Since at the moment the requests are unauthenticated, GitHub allows only 60 requests per hour and that included also the requests performed by the tests.
