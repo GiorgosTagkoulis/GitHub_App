@@ -46,7 +46,7 @@ app.get('/:username', async (req, res) => {
     following: [],
     repos: [],
   };
-  await fetch(`https://api.github.com/users/${username}/followers`)
+  const fetchFollowers = fetch(`https://api.github.com/users/${username}/followers`)
     .then((respond) => respond.json())
     .then((respond) => {
       respondObj.followers = respond.map((followers) => followers.login);
@@ -55,7 +55,7 @@ app.get('/:username', async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-  await fetch(`https://api.github.com/users/${username}/following`)
+  const fetchFollowing = fetch(`https://api.github.com/users/${username}/following`)
     .then((respond) => respond.json())
     .then((respond) => {
       respondObj.following = respond.map((following) => following.login);
@@ -64,7 +64,7 @@ app.get('/:username', async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-  await fetch(`https://api.github.com/users/${username}/repos`)
+  const fetchRepos =fetch(`https://api.github.com/users/${username}/repos`)
     .then((respond) => respond.json())
     .then((respond) => {
       respondObj.repos = respond.map((repos) => repos.name);
@@ -73,7 +73,8 @@ app.get('/:username', async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-  res.json(respondObj);
+    Promise.all([fetchFollowers, fetchFollowing, fetchRepos])
+      .then(() => res.json(respondObj));
 });
 
 const port = process.env.PORT || 8080;
