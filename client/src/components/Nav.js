@@ -30,13 +30,13 @@ const Nav = (props) => {
 
   return (
     <Ul>
-      <Anchor onClick={handleClick} data-id="1">
+      <Anchor onClick={handleClick} data-id="followers">
         Followers
       </Anchor>
-      <Anchor onClick={handleClick} data-id="2">
+      <Anchor onClick={handleClick} data-id="following">
         Following
       </Anchor>
-      <Anchor onClick={handleClick} data-id="3">
+      <Anchor onClick={handleClick} data-id="repos">
         Repos
       </Anchor>
     </Ul>

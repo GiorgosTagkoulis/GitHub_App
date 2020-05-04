@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import User from './components/User';
+import Nav from './components/Nav';
+import ListItems from './components/ListItems';
 import ErrorPage from './components/ErrorPage';
 
 const Wrapper = styled.div`
   margin: 7em auto;
   text-align: center;
   max-width: 630px;
+`;
+
+const UserWrapper = styled.div`
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Header = styled.h1`
@@ -44,6 +52,12 @@ class App extends Component {
     userExists: false,
     errorMessage: '',
     user: null,
+    activeTab: "followers",
+    lists: {
+      followers: [],
+      following: [],
+      repos: [],
+    }
   };
 
   searchUsername = (username) => {
@@ -72,6 +86,10 @@ class App extends Component {
           user: res,
         })
       )
+      .then(() => {
+        const endpoint = `/${this.state.user.username}`;
+        this.fetchResources(endpoint);
+      })
       .catch((err) => {
         this.setState({ errorMessage: err.message });
       });
@@ -83,8 +101,20 @@ class App extends Component {
     event.preventDefault();
   };
 
+  fetchResources = (endpoint) => {
+    fetch(endpoint)
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({ lists: res });
+      });
+  };
+
   handleChange = (event) => {
     this.setState({ searchTerm: event.target.value });
+  };
+
+  activeTab = (id) => {
+    this.setState({ activeTab: id });
   };
 
   render() {
@@ -95,7 +125,14 @@ class App extends Component {
           <InputText value={this.state.searchTerm} onChange={this.handleChange} />
           <InputSubmit />
         </form>
-        {this.state.userExists && <User details={this.state.user} />}
+        {this.state.userExists ? 
+          <UserWrapper>
+            <User details={this.state.user} />
+            <Nav callback={this.activeTab} />
+            <ListItems tab={this.state.activeTab} items={this.state.lists} />
+          </UserWrapper>
+          : null
+        }
         {this.state.errorMessage && <ErrorPage error={this.state.errorMessage} />}
       </Wrapper>
     );
