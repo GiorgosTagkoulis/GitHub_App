@@ -1,4 +1,4 @@
-## GigHub App
+## GigHub App [![Build Status](https://travis-ci.org/GiorgosTagkoulis/GitHub_App.svg?branch=master)](https://travis-ci.org/GiorgosTagkoulis/GitHub_App)
 
 An app that make api calls to the GitHib API. It searches for users by username and presents various informations regarding followers, following and repos.
 
