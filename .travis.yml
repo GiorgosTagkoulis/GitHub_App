@@ -1,2 +1,15 @@
 language: node_js
 node_js: node
+script:
+  -npm run lint
+  -npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: rJKEuvFTVIjQWS5R+WdRLfnaYnkHZ3N6M/OQbI8zGRXNCeASbViowZpnI2tTYtDA/QOOYhtv8ORf7+pFLkX5qgTyoHGZH5KVODexk6fiCM49hjVEQcc24iuJ8BXIV90QfgMgZnRGkLgikivIPGgfMRaLF/8zgS066ng3Sd1z19yOK9MpctgxyI7hiRgnoTZEuVsAtjP/y/5BzGYiha8sR/bXJNs9yLtNA5rC9+qjxrP1wOqckeIPHxe0oGDor0E4J2fEwoEMppXXHmDohHdgRE/d1+jRgWBu/Vy/ZPKzyVy+zek211PnNp4rU7EVNNO6Ts0O8WVh4RTF1Vi0bXzM4GyXmHE6ul+FVP1M0FiXHFGCZQhRI9h+gc2Ur6qA8PUUELw0s8Kh4d3uAUk6TgzPmJOizjF9duL2bcjWMPIqtksaWj/VIf/BaZPNLZzq+nTuzXOrYUURtZeBk3QkychrPPWcJid6YMIZKp26vQPPs14sZHloinz0NGih3TRJLxOx/YHK2cAGDwFTTpbBaxYpPEjekG5SNCokmkoaIvG4YZIoDk5roIxxyOZOzRHS6V+WXD0yF3C3zcUkggCm46qtLoLuzQY+yyGpvuyMFDIQSQuMk3xJEt/TUFF0RbDtBb/HU8gfQ5geHCIvE26UCMvjlligkWi1KXdOWeR2oDtpX8Y=
+  app:
+    master: prod-github-app
+    development: stage-github-app
+  on:
+    repo: GiorgosTagkoulis/GitHub_App
+  skip_cleanup: 'true'
