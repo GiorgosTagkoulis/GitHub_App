@@ -19,7 +19,7 @@ const Anchor = styled.a`
   padding: 14px 16px;
   text-decoration: none;
   &:hover {
-    background-color: red;
+    background-color: green;
   }
 `;
 
