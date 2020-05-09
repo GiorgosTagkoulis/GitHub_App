@@ -64,7 +64,7 @@ app.get('/:username', async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-  const fetchRepos =fetch(`https://api.github.com/users/${username}/repos`)
+  const fetchRepos = fetch(`https://api.github.com/users/${username}/repos`)
     .then((respond) => respond.json())
     .then((respond) => {
       respondObj.repos = respond.map((repos) => repos.name);
@@ -73,8 +73,7 @@ app.get('/:username', async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-    Promise.all([fetchFollowers, fetchFollowing, fetchRepos])
-      .then(() => res.json(respondObj));
+  Promise.all([fetchFollowers, fetchFollowing, fetchRepos]).then(() => res.json(respondObj));
 });
 
 const port = process.env.PORT || 8080;
