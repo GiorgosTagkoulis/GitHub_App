@@ -1,11 +1,13 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
 const notFound = 404;
 
@@ -74,6 +76,11 @@ app.get('/:username', async (req, res) => {
       res.sendStatus(500);
     });
   Promise.all([fetchFollowers, fetchFollowing, fetchRepos]).then(() => res.json(respondObj));
+});
+
+app.get('*', function(req, res) {
+  //res.sendFile(path.join(__dirname, '/public/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 const port = process.env.PORT || 8080;
